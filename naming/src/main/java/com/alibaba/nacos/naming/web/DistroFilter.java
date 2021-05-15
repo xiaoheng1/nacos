@@ -59,6 +59,10 @@ public class DistroFilter implements Filter {
     
     private static final int PROXY_READ_TIMEOUT = 2000;
     
+    private static final String QUESTION_MARK = "?";
+    
+    private static final String HTTP_PROTOCOL = "http://";
+    
     @Autowired
     private DistroMapper distroMapper;
     
@@ -81,7 +85,7 @@ public class DistroFilter implements Filter {
         String urlString = req.getRequestURI();
         
         if (StringUtils.isNotBlank(req.getQueryString())) {
-            urlString += "?" + req.getQueryString();
+            urlString += QUESTION_MARK + req.getQueryString();
         }
         
         try {
@@ -128,7 +132,7 @@ public class DistroFilter implements Filter {
             final Map<String, String> paramsValue = HttpClient.translateParameterMap(req.getParameterMap());
             
             RestResult<String> result = HttpClient
-                    .request("http://" + targetServer + req.getRequestURI(), headerList, paramsValue, body,
+                    .request(HTTP_PROTOCOL + targetServer + req.getRequestURI(), headerList, paramsValue, body,
                             PROXY_CONNECT_TIMEOUT, PROXY_READ_TIMEOUT, Charsets.UTF_8.name(), req.getMethod());
             String data = result.ok() ? result.getData() : result.getMessage();
             try {

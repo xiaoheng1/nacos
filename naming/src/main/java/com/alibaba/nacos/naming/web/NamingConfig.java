@@ -28,13 +28,27 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class NamingConfig {
     
+    private static final String FILTER_REGISTRATION_URL_PATTERNS = "/v1/ns/*";
+    
+    private static final String DISTRO_FILTER_NAME = "distroFilter";
+    
+    private static final String SERVICE_NAME_FILTER_NAME = "serviceNameFilter";
+    
+    private static final String TRAFFIC_REVISE_FILTER = "trafficReviseFilter";
+    
+    private static final int ORDER1 = 1;
+    
+    private static final int ORDER5 = 5;
+    
+    private static final int ORDER6 = 6;
+    
     @Bean
     public FilterRegistrationBean distroFilterRegistration() {
         FilterRegistrationBean<DistroFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(distroFilter());
-        registration.addUrlPatterns("/v1/ns/*");
-        registration.setName("distroFilter");
-        registration.setOrder(6);
+        registration.addUrlPatterns(FILTER_REGISTRATION_URL_PATTERNS);
+        registration.setName(DISTRO_FILTER_NAME);
+        registration.setOrder(ORDER6);
         return registration;
     }
     
@@ -42,9 +56,9 @@ public class NamingConfig {
     public FilterRegistrationBean serviceNameFilterRegistration() {
         FilterRegistrationBean<ServiceNameFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(serviceNameFilter());
-        registration.addUrlPatterns("/v1/ns/*");
-        registration.setName("serviceNameFilter");
-        registration.setOrder(5);
+        registration.addUrlPatterns(FILTER_REGISTRATION_URL_PATTERNS);
+        registration.setName(SERVICE_NAME_FILTER_NAME);
+        registration.setOrder(ORDER5);
         return registration;
     }
     
@@ -52,9 +66,9 @@ public class NamingConfig {
     public FilterRegistrationBean trafficReviseFilterRegistration() {
         FilterRegistrationBean<TrafficReviseFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(trafficReviseFilter());
-        registration.addUrlPatterns("/v1/ns/*");
-        registration.setName("trafficReviseFilter");
-        registration.setOrder(1);
+        registration.addUrlPatterns(FILTER_REGISTRATION_URL_PATTERNS);
+        registration.setName(TRAFFIC_REVISE_FILTER);
+        registration.setOrder(ORDER1);
         return registration;
     }
     
